@@ -1,0 +1,46 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.80'
+}
+
+version = project.mod_version
+group = 'fr.citizen'
+base { archivesName = 'citizenrealisme' }
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    mavenCentral()
+}
+
+neoForge {
+    version = project.neo_version
+
+    runs {
+        // Autotest : démarre un vrai serveur NeoForge, vérifie le poids, les cases, les outils, le rituel, puis s'arrête.
+        server {
+            server()
+            gameDirectory = project.file('run')
+            systemProperty 'citizenrealisme.selftest', 'true'
+            programArgument '--nogui'
+        }
+    }
+
+    mods {
+        citizenrealisme {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand version: project.version
+    }
+}

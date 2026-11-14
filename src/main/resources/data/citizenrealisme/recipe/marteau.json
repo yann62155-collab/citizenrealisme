@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "II",
+    "IS",
+    " S"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "minecraft:iron_shovel",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": "{\"text\": \"Marteau de forgeron\", \"italic\": false, \"color\": \"gold\"}",
+      "minecraft:lore": [
+        "{\"text\": \"Outil d'artisan\", \"italic\": false, \"color\": \"gray\"}",
+        "{\"text\": \"Forge, armures, armes et objets en métal\", \"italic\": false, \"color\": \"dark_gray\"}"
+      ],
+      "minecraft:custom_data": {
+        "citizenrealisme_outil": "marteau"
+      },
+      "minecraft:custom_model_data": 7101,
+      "minecraft:max_damage": 250,
+      "minecraft:tool": {
+        "rules": [],
+        "default_mining_speed": 1.0,
+        "damage_per_block": 0
+      },
+      "minecraft:attribute_modifiers": {
+        "modifiers": [],
+        "show_in_tooltip": false
+      }
+    }
+  }
+}

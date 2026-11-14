@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "N",
+    "T"
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "T": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "id": "minecraft:flint_and_steel",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": "{\"text\": \"Aiguille de couturier\", \"italic\": false, \"color\": \"gold\"}",
+      "minecraft:lore": [
+        "{\"text\": \"Outil d'artisan\", \"italic\": false, \"color\": \"gray\"}",
+        "{\"text\": \"Cuir, lits, bannières, tapis, sacs\", \"italic\": false, \"color\": \"dark_gray\"}"
+      ],
+      "minecraft:custom_data": {
+        "citizenrealisme_outil": "aiguille"
+      },
+      "minecraft:custom_model_data": 7103,
+      "minecraft:max_damage": 150,
+      "minecraft:tool": {
+        "rules": [],
+        "default_mining_speed": 1.0,
+        "damage_per_block": 0
+      },
+      "minecraft:attribute_modifiers": {
+        "modifiers": [],
+        "show_in_tooltip": false
+      }
+    }
+  }
+}

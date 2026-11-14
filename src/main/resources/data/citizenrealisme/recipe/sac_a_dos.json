@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "TLT",
+    "LCL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "T": {
+      "item": "minecraft:string"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    }
+  },
+  "result": {
+    "id": "minecraft:saddle",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": "{\"text\": \"Sac à dos\", \"italic\": false, \"color\": \"gold\"}",
+      "minecraft:lore": [
+        "{\"text\": \"Clic droit pour l'équiper\", \"italic\": false, \"color\": \"dark_gray\"}"
+      ],
+      "minecraft:custom_data": {
+        "citizenrealisme_sac": "sacados"
+      },
+      "minecraft:custom_model_data": 7105
+    }
+  }
+}

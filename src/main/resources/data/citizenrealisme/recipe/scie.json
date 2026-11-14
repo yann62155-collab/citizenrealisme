@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "III",
+    "SS "
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "minecraft:shears",
+    "count": 1,
+    "components": {
+      "minecraft:custom_name": "{\"text\": \"Scie de menuisier\", \"italic\": false, \"color\": \"gold\"}",
+      "minecraft:lore": [
+        "{\"text\": \"Outil d'artisan\", \"italic\": false, \"color\": \"gray\"}",
+        "{\"text\": \"Portes, coffres, barrières, bateaux, panneaux\", \"italic\": false, \"color\": \"dark_gray\"}"
+      ],
+      "minecraft:custom_data": {
+        "citizenrealisme_outil": "scie"
+      },
+      "minecraft:custom_model_data": 7102,
+      "minecraft:max_damage": 200,
+      "minecraft:tool": {
+        "rules": [],
+        "default_mining_speed": 1.0,
+        "damage_per_block": 0
+      },
+      "minecraft:attribute_modifiers": {
+        "modifiers": [],
+        "show_in_tooltip": false
+      }
+    }
+  }
+}

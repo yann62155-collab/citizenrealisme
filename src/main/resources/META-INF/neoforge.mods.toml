@@ -1,0 +1,27 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "All Rights Reserved"
+
+[[mods]]
+modId = "citizenrealisme"
+version = "${version}"
+displayName = "Citizen Réalisme"
+authors = "Ishawakiii"
+description = '''Inventaire, craft et enchantement réalistes pour le serveur Citizen : poids, sacs, équipement visible, outils d'artisan, durée et taux de réussite des crafts, rituels d'enchantement. Compatible joueurs console (Citizen Bedrock).'''
+
+[[mixins]]
+config = "citizenrealisme.mixins.json"
+
+[[dependencies.citizenrealisme]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.215,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.citizenrealisme]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1,1.21.2)"
+ordering = "NONE"
+side = "BOTH"
