@@ -22,6 +22,13 @@ par le serveur : elles s'appliquent de la même façon aux joueurs PC et aux jou
 - **Équipement visible** : sac dans le dos, arc/arbalète/trident/masse en bandoulière, épée et outil à la ceinture
   (objets de la barre rapide qui ne sont pas en main).
 
+### Sophisticated Backpacks (compatibilité)
+- Le contenu des sacs Sophisticated Backpacks compte dans le poids, qu'ils soient dans l'inventaire
+  ou portés dans le dos (emplacements Curios / Accessories). Un sac vide pèse 1,5 kg.
+- La sacoche et le sac à dos Citizen restent nécessaires pour ouvrir les rangées de l'inventaire.
+- Réglages : section `sophisticatedBackpacks` de `realisme.json` (`compterContenu`, `poidsSacVide`,
+  `bonusCapaciteSiPorte` pour donner de la capacité quand un sac est porté, 0 par défaut).
+
 ### Craft
 - Crafts simples (2 cases ou moins, sans outil) : instantanés.
 - Les autres prennent du temps : clic sur le résultat → barre de progression → l'objet arrive dans l'inventaire. Bouger annule.

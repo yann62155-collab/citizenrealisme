@@ -30,7 +30,19 @@ public final class Weights {
 
     /** Poids d'un seul exemplaire de l'objet, contenu compris (boîtes de Shulker...). */
     public static double unit(ItemStack stack) {
+        return unit(stack, 0);
+    }
+
+    private static double unit(ItemStack stack, int depth) {
         if (stack.isEmpty() || RealismeItems.isLock(stack)) return 0;
+        if (BackpackCompat.isSophisticated(stack)) {
+            RealismeConfig.SophisticatedBackpacks cfg = RealismeConfig.get().sophisticatedBackpacks;
+            double w = cfg.poidsSacVide;
+            if (cfg.compterContenu && depth < 3) {
+                for (ItemStack inner : BackpackCompat.contents(stack)) w += unit(inner, depth + 1) * inner.getCount();
+            }
+            return w;
+        }
         String bag = RealismeItems.bagId(stack);
         if (bag != null) return RealismeItems.SAC_A_DOS.equals(bag) ? 1.5 : 0.8;
         String tool = RealismeItems.toolId(stack);
@@ -39,7 +51,7 @@ public final class Weights {
         ItemContainerContents contents = stack.get(DataComponents.CONTAINER);
         if (contents != null) {
             for (ItemStack inner : contents.nonEmptyItems()) {
-                w += unit(inner) * inner.getCount();
+                w += unit(inner, depth + 1) * inner.getCount();
             }
         }
         return w;
@@ -52,12 +64,21 @@ public final class Weights {
     /** Charge totale portée : inventaire, armure, main secondaire et objet tenu au curseur. */
     public static double carried(Player player) {
         Inventory inv = player.getInventory();
+        java.util.Set<java.util.UUID> backpacks = new java.util.HashSet<>();
         double total = 0;
-        for (ItemStack s : inv.items) total += of(s);
-        for (ItemStack s : inv.armor) total += of(s);
-        for (ItemStack s : inv.offhand) total += of(s);
-        total += of(player.containerMenu.getCarried());
+        for (ItemStack s : inv.items) total += counted(s, backpacks);
+        for (ItemStack s : inv.armor) total += counted(s, backpacks);
+        for (ItemStack s : inv.offhand) total += counted(s, backpacks);
+        total += counted(player.containerMenu.getCarried(), backpacks);
+        for (ItemStack s : BackpackCompat.worn(player)) total += counted(s, backpacks);
         return total;
+    }
+
+    /** Un même sac Sophisticated Backpacks (même stockage) n'est compté qu'une fois. */
+    private static double counted(ItemStack stack, java.util.Set<java.util.UUID> backpacks) {
+        java.util.UUID id = BackpackCompat.storageId(stack);
+        if (id != null && !backpacks.add(id)) return 0;
+        return of(stack);
     }
 
     public static double capacity(Player player) {
@@ -66,6 +87,15 @@ public final class Weights {
         double cap = cfg.capaciteBase;
         if (RealismeItems.SACOCHE.equals(bag)) cap += cfg.bonusSacoche;
         if (RealismeItems.SAC_A_DOS.equals(bag)) cap += cfg.bonusSacADos;
+        double sb = RealismeConfig.get().sophisticatedBackpacks.bonusCapaciteSiPorte;
+        if (sb > 0) {
+            for (ItemStack s : BackpackCompat.worn(player)) {
+                if (BackpackCompat.isSophisticated(s)) {
+                    cap += sb;
+                    break;
+                }
+            }
+        }
         return cap;
     }
 

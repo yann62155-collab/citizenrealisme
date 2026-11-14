@@ -27,6 +27,16 @@ public final class RealismeConfig {
     public Craft craft = new Craft();
     public Enchantement enchantement = new Enchantement();
     public Affichage equipementVisible = new Affichage();
+    public SophisticatedBackpacks sophisticatedBackpacks = new SophisticatedBackpacks();
+
+    /** Sacs du mod Sophisticated Backpacks (si présent). */
+    public static final class SophisticatedBackpacks {
+        /** Le contenu des sacs compte dans le poids (dans l'inventaire ou porté dans le dos). */
+        public boolean compterContenu = true;
+        public double poidsSacVide = 1.5;
+        /** Capacité ajoutée quand un sac Sophisticated Backpacks est porté dans le dos (0 = aucune). */
+        public double bonusCapaciteSiPorte = 0.0;
+    }
 
     public static final class Poids {
         public boolean actif = true;
@@ -183,5 +193,6 @@ public final class RealismeConfig {
         if (enchantement.catalyseursOption2 == null) enchantement.catalyseursOption2 = new LinkedHashMap<>();
         if (enchantement.catalyseursOption3 == null) enchantement.catalyseursOption3 = new LinkedHashMap<>();
         if (equipementVisible == null) equipementVisible = new Affichage();
+        if (sophisticatedBackpacks == null) sophisticatedBackpacks = new SophisticatedBackpacks();
     }
 }

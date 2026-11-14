@@ -27,12 +27,17 @@ jobs:
 
       - name: Autotest sur un vrai serveur NeoForge 21.1.215
         run: |
-          mkdir -p run
+          mkdir -p run/mods
           echo "eula=true" > run/eula.txt
+          # Mods du serveur Citizen testés avec Citizen Réalisme
+          base=https://raw.githubusercontent.com/yann62155-collab/citizen/main/mods
+          for jar in sophisticatedbackpacks-1.21.1-3.25.14.1410.jar sophisticatedcore-1.21.1-1.3.89.1239.jar curios-neoforge-9.0.15+1.21.1.jar; do
+            curl -fsSL -o "run/mods/$jar" "$base/$jar" || echo "::warning::$jar introuvable"
+          done
           set +e
           timeout 900 ./gradlew runServer --stacktrace 2>&1 | tee selftest.log
           set -e
-          grep -q "SELFTEST OK" selftest.log || { echo "::error::L'autotest a échoué"; grep -n "SELFTEST\|\[test\]\|ERROR\|Exception\|Mixin" selftest.log | tail -80; exit 1; }
+          grep -q "SELFTEST OK" selftest.log && grep -q "sac Sophisticated Backpacks avec" selftest.log || { echo "::error::L'autotest a échoué"; grep -n "SELFTEST\|\[test\]\|ERROR\|Exception\|Mixin" selftest.log | tail -80; exit 1; }
 
       - name: Journal de l'autotest
         if: always()

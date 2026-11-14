@@ -93,6 +93,28 @@ public final class SelfTest {
             Encumbrance.tick(p);
             check(!p.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(Encumbrance.SLOW), "inventaire vide : vitesse normale");
 
+            // ---- Sophisticated Backpacks (présent dans le dossier mods de l'autotest)
+            if (net.neoforged.fml.ModList.get().isLoaded("sophisticatedbackpacks")) {
+                ItemStack backpack = new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(
+                        ResourceLocation.fromNamespaceAndPath("sophisticatedbackpacks", "backpack")));
+                check(BackpackCompat.isSophisticated(backpack), "sac Sophisticated Backpacks reconnu");
+                Object wrapper = Class.forName("net.p3pp3rf1y.sophisticatedbackpacks.backpack.wrapper.BackpackWrapper")
+                        .getMethod("fromStack", ItemStack.class).invoke(null, backpack);
+                Object handler = Class.forName("net.p3pp3rf1y.sophisticatedbackpacks.backpack.wrapper.IBackpackWrapper")
+                        .getMethod("getInventoryHandler").invoke(wrapper);
+                ItemStack left = ((net.neoforged.neoforge.items.IItemHandler) handler).insertItem(0, new ItemStack(Items.IRON_BLOCK, 10), false);
+                check(left.isEmpty(), "10 blocs de fer rangés dans le sac");
+                double w = Weights.unit(backpack);
+                check(w >= 61.0 && w <= 62.0, "sac Sophisticated Backpacks avec 10 blocs de fer : " + w + " kg (attendu 61,5)");
+                p.getInventory().clearContent();
+                p.getInventory().setItem(0, backpack);
+                p.getInventory().setItem(1, backpack.copy());
+                check(Weights.carried(p) >= 61.0 && Weights.carried(p) <= 62.0, "même sac en double : compté une seule fois");
+                p.getInventory().clearContent();
+            } else {
+                CitizenRealisme.LOGGER.warn("[test] Sophisticated Backpacks absent : test du sac ignoré");
+            }
+
             // ---- règles de craft
             check(RealismeItems.MARTEAU.equals(CraftRules.requiredTool(new ItemStack(Items.IRON_CHESTPLATE), List.of(new ItemStack(Items.IRON_INGOT)))), "plastron en fer : marteau");
             check(RealismeItems.SCIE.equals(CraftRules.requiredTool(new ItemStack(Items.OAK_DOOR), List.of(new ItemStack(Items.OAK_PLANKS)))), "porte : scie");
